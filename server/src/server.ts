@@ -1,35 +1,31 @@
 import 'dotenv/config';
-import express, { Response, Request } from 'express';
+import express from 'express';
 import compression from 'compression';
 import { limiter } from '@middlewares/limiter';
 import helmet from 'helmet';
 import { db } from '@config/db';
-import { User } from '@models/User';
+import { user } from '@routes/index';
+
+var cors = require('cors')
+
 
 const app = express();
 
+app.use(cors())
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(compression());
 app.use(helmet());
 app.use(limiter);
 
-app.get('/hello', async (req: Request, res: Response) => {
-  await User.create({
-    avatar: 'https://avatars2.githubusercontent.com/u/17098281?s=460&v=4',
-    email: 'john@gmail.com',
-    name: 'John Doe',
-  });
-  res.send('Hello World 👋');
-});
+// All routes should live here
+app.use('/api/user', user);
 
-const port = process.env.PORT || 3000;
-const host = process.env.APP_HOSTNAME || 'localhost';
-const url = process.env.APP_URL || `http://${host}:${port}`;
+const port = process.env.PORT || 5000;
 
 // listen to port you specified
 app.listen(port, async () => {
-  console.log(`🚀 Server ready at: ${url}`);
+  console.log(`🚀 Server ready at: ${port}`);
   const { connection } = await db();
   console.log(`👋 Connected to database successfully : ${connection.name}`);
 });

@@ -1,7 +1,8 @@
 import type { NextPage } from 'next';
 import Step1 from '@/components/form/step1';
-import Step2 from '@/components/form/Step2';
-import Step3 from '@/components/form/Step3';
+import Step2 from '@/components/form/step2';
+import Step3 from '@/components/form/step3';
+import Step4 from '@/components/form/step4';
 import * as React from 'react';
 import Box from '@mui/material/Box';
 import Stepper from '@mui/material/Stepper';
@@ -12,7 +13,7 @@ import Typography from '@mui/material/Typography';
 import Swal from 'sweetalert2'
 
 
-const steps = ['Step1', 'Step2', 'Step2'];
+const steps = ['Step1', 'Step2', 'Step3',"Step4"];
 
 const FormInscription : NextPage=()=> {
 
@@ -22,34 +23,34 @@ const FormInscription : NextPage=()=> {
   const [nextClicked, setNextClicked] = React.useState(0);
   const [isFinish, setIsFinish] = React.useState(0);
   const [age,setAge]= React.useState(0);
+  const [vaccin,setVaccin]= React.useState(0);
 
-
-  const data={
-    cin:"Z29956",
-    birthday:"2018-07-22",
-    address:"taza",
-    phone:"096774555",
-     vaccinations:[
-         {
-             shot:3
-         }
-     ]
-  }
 
   const create=(e:any) => {
 
     e.preventDefault();
+    let effectVaccination;
+    if(vaccin==2){
+      effectVaccination=e.target.effectSecondaireVaccin1;
+    }
+    else if(vaccin==3){
+      effectVaccination=e.target.effectSecondaireVaccin1;
+
+    }
     let body={
       cin:e.target.cne.value,
       address:e.target.address.value,
       phone:e.target.tele.value,
       birthday:age,
       vaccinations: [{
-        shot:1
-      }]
+        shot:vaccin,
+      }  ],
+      effet:"OIUYTRE",
+      centre:e.target.centre.value,
+
     }
 
-    fetch("http://localhost:5000/api/user",{
+    fetch("http://localhost:5000/api/user/create",{
       method: 'POST', // *GET, POST, PUT, DELETE, etc.
 
       headers: {
@@ -90,10 +91,13 @@ const FormInscription : NextPage=()=> {
     stepActuel = <Step1 updateAuthorisation={updateAuthorisation} nextClicked={nextClicked} setAge={setAge} />;
   }
   else if(activeStep==1){
-    stepActuel = <Step2 updateAuthorisation={updateAuthorisation} nextClicked={nextClicked}   />;
+    stepActuel = <Step2 updateAuthorisation={updateAuthorisation} nextClicked={nextClicked} setVaccin={setVaccin}   />;
   }
   else if(activeStep==2){
-    stepActuel = <Step3 isFinish={isFinish}  />;
+    stepActuel = <Step3 updateAuthorisation={updateAuthorisation} nextClicked={nextClicked}  vaccin={vaccin}  />;
+  }
+  else if(activeStep==3){
+    stepActuel = <Step4 isFinish={isFinish}  />;
   }
   const isStepOptional = (step: number) => {
     return step === 1;

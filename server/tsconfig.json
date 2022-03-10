@@ -16,15 +16,13 @@
       "@utils/*": ["utils/*"],
       "@types/*": ["types/*"],
       "@routes/*": ["routes/*"],
-      "@services/*": ["services/*"],
       "@models/*": ["models/*"],
       "@controllers/*": ["controllers/*"],
       "@middlewares/*": ["middlewares/*"],
       "@interfaces/*": ["interfaces/*"],
-      "@errors/*": ["errors/*"],
       "@config/*": ["config/*"]
     }
   },
   "exclude": ["build", "__test__", "node_modules"],
-  "include": ["src/**/*.ts"]
+  "include": ["src"]
 }

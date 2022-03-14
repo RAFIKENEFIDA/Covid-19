@@ -70,6 +70,9 @@ function DrawerExample() {
   const btnRef = useRef<any>();
   const [center, setCenter] = useState<any>('');
   const [region, setRegion] = useState<any>('');
+  const [email, setEmail] = useState<any>('');
+  const [nom, setNom] = useState<any>('');
+  const [prenom, setPrenom] = useState<any>('');
   const [loading, setLoading] = useState<any>(false);
   const queryClient = useQueryClient();
 
@@ -86,9 +89,11 @@ function DrawerExample() {
   const handleSubmit = () => {
     const Center = {
       name: center,
+      email:email,
+      nom:nom,
+      prenom:prenom,
       region,
     };
-
     mutation.mutate(Center);
   };
 
@@ -124,6 +129,30 @@ function DrawerExample() {
               <Input
                 value={region}
                 onChange={(event) => setRegion(event.target.value)}
+                placeholder='Type here...'
+              />
+            </div>
+            <div>
+              <FormLabel htmlFor='username'>Nom du responsable</FormLabel>
+              <Input
+                value={nom}
+                onChange={(event) => setNom(event.target.value)}
+                placeholder='Type here...'
+              />
+            </div>
+            <div>
+              <FormLabel htmlFor='username'>Prenom du responsable</FormLabel>
+              <Input
+                value={prenom}
+                onChange={(event) => setPrenom(event.target.value)}
+                placeholder='Type here...'
+              />
+            </div>
+            <div>
+              <FormLabel htmlFor='username'>Email du responsable</FormLabel>
+              <Input
+                value={email}
+                onChange={(event) => setEmail(event.target.value)}
                 placeholder='Type here...'
               />
             </div>

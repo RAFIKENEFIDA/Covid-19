@@ -4,7 +4,7 @@ import compression from 'compression';
 import helmet from 'helmet';
 import { db } from '@config/db';
 import { limiter } from '@middlewares/limiter';
-import { admin, center, user } from '@routes/index';
+import { admin, center, user,responsable } from '@routes/index';
 var cors = require('cors')
 
 
@@ -28,6 +28,7 @@ app.get('/', (req, res) => {
 app.use('/api/user', user);
 app.use('/api/admin', admin);
 app.use('/api/center', center);
+app.use('/api/responsable', responsable);
 
 // const port = process.env.PORT || 5000;
 

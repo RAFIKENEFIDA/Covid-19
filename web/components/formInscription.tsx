@@ -29,14 +29,20 @@ const FormInscription : NextPage=()=> {
   const create=(e:any) => {
 
     e.preventDefault();
-    let effectVaccination;
-    if(vaccin==2){
-      effectVaccination=e.target.effectSecondaireVaccin1;
-    }
-    else if(vaccin==3){
-      effectVaccination=e.target.effectSecondaireVaccin1;
+    // let effectVaccination;
+    // if(vaccin==2){
+    //   effectVaccination=e.target.effectSecondaireVaccin1;
+    // }
+    // else if(vaccin==3){
+    //   effectVaccination=e.target.effectSecondaireVaccin1;
 
-    }
+    // }
+    let today = new Date();
+    let dateNextShot = new Date();
+
+    // Add 30 Day
+    dateNextShot.setDate(today.getDate() + 30);
+
     let body={
       cin:e.target.cne.value,
       address:e.target.address.value,
@@ -44,8 +50,9 @@ const FormInscription : NextPage=()=> {
       birthday:age,
       vaccinations: [{
         shot:vaccin,
+        dateNextShot:dateNextShot,
       }  ],
-      effet:"OIUYTRE",
+      effet:"une attaque virale",
       centre:e.target.centre.value,
 
     }

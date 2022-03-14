@@ -1,11 +1,14 @@
 import type { NextPage } from 'next';
-import * as React from 'react';
+import React, { useState, useEffect } from 'react';
+
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 import FormControl from '@mui/material/FormControl';
+import { useCenters } from '../../hooks/useCenters';
+
 
 
 type Props = {
@@ -15,10 +18,27 @@ type Props = {
 
 
 const Step4 : React.FC<Props>=({isFinish})=> {
+  const [centers,setCenters]= useState([]);
+
  
 
-    
+  useEffect(() => {
+    const url = "http://localhost:5000/api/center/centers";
 
+    const fetchCenters = async () => {
+      try {
+        let response = await fetch(url);
+        let json = await response.json();
+        console.log(json.centers);
+        setCenters(json.centers);
+      } catch (error) {
+        console.log("error", error);
+      }
+    };
+
+    fetchCenters();
+}, []);
+ 
   return (
   
     <div className="flex flex-col justify-center items-center">
@@ -39,8 +59,10 @@ const Step4 : React.FC<Props>=({isFinish})=> {
           name="centre"
           label="Centre"
         >
-          <MenuItem value={"center aloui"}>center aloui</MenuItem>
-          <MenuItem value={"center zawya"}>center zawya</MenuItem>
+             {centers.map((center: any) => (
+          <MenuItem value={"center aloui"}>{center.name}</MenuItem>
+          ))}
+
         </Select>
         </FormControl>
 
